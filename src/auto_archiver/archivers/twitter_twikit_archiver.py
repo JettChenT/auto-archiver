@@ -53,6 +53,8 @@ class TwitterTwikitArchiver(TwitterArchiver, Archiver):
         result = Metadata()
         tweet = self.client.get_tweet_by_id(tweet_id)
         result.set_content(tweet.text)
+        result.set_title(f"{tweet.user.screen_name} - {tweet.text}")
+        result.set_timestamp(tweet.created_at_datetime)
         for i, tw_media in enumerate(tweet.media):
             media = Media(filename="")
             mimetype = ""

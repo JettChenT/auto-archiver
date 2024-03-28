@@ -8,3 +8,4 @@ from .tiktok_archiver import TiktokArchiver
 from .telegram_archiver import TelegramArchiver
 from .vk_archiver import VkArchiver
 from .youtubedl_archiver import YoutubeDLArchiver
+from .twitter_twikit_archiver import TwitterTwikitArchiver

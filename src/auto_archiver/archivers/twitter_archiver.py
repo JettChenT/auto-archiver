@@ -3,12 +3,12 @@ from datetime import datetime
 from loguru import logger
 from snscrape.modules.twitter import TwitterTweetScraper, Video, Gif, Photo
 from slugify import slugify
+from yt_dlp import YoutubeDL
+from .ytdlp_twitter import TwitterIEPatched
 
 from . import Archiver
 from ..core import Metadata, Media
 from ..utils import UrlUtil
-
-
 class TwitterArchiver(Archiver):
     """
     This Twitter Archiver uses unofficial scraping methods.
@@ -125,6 +125,13 @@ class TwitterArchiver(Archiver):
 
         result.set_title(tweet.get("text")).set_content(json.dumps(tweet, ensure_ascii=False)).set_timestamp(datetime.strptime(tweet["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"))
         return result.success("twitter-hack")
+    
+    def download_ytdlp(self, item: Metadata, url: str) -> Metadata:
+        """
+        Download tweet with yt-dlp.
+        """
+        ytdl = YoutubeDL()
+        
 
     def get_username_tweet_id(self, url):
         # detect URLs that we definitely cannot handle

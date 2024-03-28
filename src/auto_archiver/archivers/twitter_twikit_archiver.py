@@ -60,7 +60,7 @@ class TwitterTwikitArchiver(TwitterArchiver, Archiver):
                 media.set("src", UrlUtil.twitter_best_quality_url(tw_media['media_url_https']))
                 mimetype = "image/jpeg"
             elif tw_media["type"] == "video":
-                variant = max(tw_media['video_info']['variants'], key=lambda x: x['bitrate'])
+                variant = max([v for v in tw_media['video_info']['variants'] if 'bitrate' in v], key=lambda x: x['bitrate'])
                 media.set("src", variant['url'])
                 mimetype = variant['content_type']
             elif tw_media["type"] == "animated_gif":
